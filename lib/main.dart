@@ -1,35 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:project/Calculator.dart';
-import 'package:project/roundedAppBar.dart';
+import 'package:project/Alarm/Reminder.dart';
+import 'package:project/Calculator/Calculator.dart';
+import 'package:project/Calendar/Calendar.dart';
+import 'package:project/Custom_widgets/roundedAppBar.dart';
+import 'package:project/Custom_widgets/CustomBtn.dart';
+import 'package:project/Food/FoodTypes.dart';
 
 void main() {
   runApp(MyApp());
-}
-
-/*
-the different functions which are mapped to the onpressed callbacks of the
-different buttons in the main menu - we may use these helper functions for 
-page navigation purposes.
-*/
-
-void alarm() {
-  print('print Alarm');
-}
-
-void radio() {
-  print('print Radio');
-}
-
-void phone() {
-  print('print Phone');
-}
-
-void calendar() {
-  print('print calendar');
-}
-
-void logout() {
-  print('print logout');
 }
 
 class MyApp extends StatelessWidget {
@@ -37,16 +15,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // initialRoute: '/',
-      // routes: {
-      //   '/': (context) => MainMenu(),
-      //   '/second': (context) => Calculator(),
-      // },
+      debugShowCheckedModeBanner: false,
       title: 'ThaliHelp',
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: MainMenu(),
+      home: SafeArea(
+        child: MainMenu(),
+      ),
     );
   }
 }
@@ -54,211 +30,147 @@ class MyApp extends StatelessWidget {
 class MainMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // the custom widget builder for the 2nd and the 3rd rows
-    Widget secondbtnSec = Container(
-        margin: const EdgeInsets.only(top: 20),
-        child:
-            Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                // the calculator button
-                onTap: () {
-                  Navigator.push(context, PageRouteBuilder(
-                      // what follows is additional code for animated transition
+    double h1 = MediaQuery.of(context).size.height / 8;
+    double w1 = (MediaQuery.of(context).size.width) / 4;
+    double hsmall = MediaQuery.of(context).size.height / 20;
+    double wsmall = MediaQuery.of(context).size.width / 5;
 
-                      // transitionDuration: Duration(seconds: 2),
-                      // transitionsBuilder:
-                      //     (context, animation, animationTime, child) {
-                      //   animation = CurvedAnimation(
-                      //       parent: animation, curve: Curves.elasticOut);
-                      //   return ScaleTransition(
-                      //     alignment: Alignment.center,
-                      //     scale: animation,
-                      //     child: child,
-                      //   );
-                      // },
-                      pageBuilder: (context, animation, animationTime) {
-                    return Calculator();
-                  }));
-                },
-                splashColor: Colors.red.shade500,
-                child: Container(
-                  width: 100,
-                  height: 65.0,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      border: Border.all(color: Colors.red, width: 2.5),
-                      borderRadius: BorderRadius.circular(12.25)),
-                  child:
-                      _buildMultiButton(Icons.calculate_outlined, 'Calculator'),
+    return SafeArea(
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          // bottomNavigationBar: BottomBar(), // add gradient here possibly
+          //  extendBodyBehindAppBar: true,
+          appBar: RoundedAppBar('Main Menu'), //AppBar
+          body: Container(
+            alignment: Alignment.center,
+            padding: EdgeInsets.fromLTRB(0, 0, 0, h1/2),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                //Alarm Button
+                Button(
+                    h: h1,
+                    w: w1 * 2.5,
+                    im: Image(
+                      image: AssetImage('assets/icons/alarm.png'),
+                      width: 40,
+                      color: Color(0xffba2529),
+                    ),
+                    text: 'Alarm',
+                    meth: () => Navigator.push(context, PageRouteBuilder(
+                        pageBuilder: (context, animation, animationTime) {
+                          return Reminder();
+                        }
+                        )
+                    )
                 ),
+                SizedBox(
+                  width: w1 / 4,
+                  height: h1 / 4,
+                ),
+                // 4 Buttons
+            Container(
+              padding: EdgeInsets.fromLTRB(w1 / 1.2, 0, w1 / 1.2, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Column(
+                    children: [
+                      //Calculator
+                      Button(
+                          h: h1,
+                          w: w1,
+                          im: Image(
+                            image: AssetImage('assets/icons/medicine.png'),
+                            width: 50,
+                            color: Color(0xffba2529),
+                          ),
+                          text: "Calculator",
+                          meth: () => Navigator.push(context, PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, animationTime) {
+                                return Calculator();
+                              }
+                              )
+                          )
+                      ),
+                      SizedBox(
+                        width: w1 / 4,
+                        height: h1 / 4,
+                      ),
+                      // Calendar
+                      Button(
+                        h: h1,
+                        w: w1,
+                        im: Image(
+                          image: AssetImage('assets/icons/calendar1.png'),
+                          width: 50,
+                          color: Color(0xffba2529),
+                        ),
+                        text: "Calender",
+                        meth: () => Navigator.push(context, PageRouteBuilder(
+                            pageBuilder: (context, animation, animationTime) {
+                              return Calendar();
+                        })),
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    width: w1 / 4,
+                    height: h1 / 4,
+                  ),
+                  Column(
+                    children: [
+                      // Radio
+                      Button(
+                        h: h1,
+                        w: w1,
+                        // ic: Icons.radio,
+                        im: Image(
+                          image: AssetImage('assets/fahad.png'),
+                          height: h1 / 2,
+                          width: w1 / 2,
+                        ),
+                        text: "Food Intake",
+                        meth: () => Navigator.push(context, PageRouteBuilder(
+                            pageBuilder: (context, animation, animationTime) {
+                          return FoodTypes();
+                        })),
+                      ),
+                      SizedBox(
+                        width: w1 / 4,
+                        height: h1 / 4,
+                      ),
+                      //Phone
+                      Button(
+                        h: h1,
+                        w: w1,
+                        ic: Icons.phone,
+                        text: "Phone",
+                      )
+                    ],
+                  ),
+                ],
               ),
-              InkWell(
-                // adjacent to calculator
-                onTap: () {
-                  calendar();
-                },
-                splashColor: Colors.red.shade500,
-                child: Container(
-                  width: 100,
-                  height: 65.0,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      border: Border.all(color: Colors.red, width: 2.5),
-                      borderRadius: BorderRadius.circular(12.25)),
-                  child: _buildMultiButton(
-                      Icons.calendar_today_outlined, 'Calendar'),
+            ),
+                SizedBox(
+                  width: w1 / 6,
+                  height: h1 / 6,
                 ),
-              )
-            ],
-          ),
-          // separate the rows without padding.
-          SizedBox(
-            height: 20,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              InkWell(
-                // directly below the calculator
-                onTap: () {
-                  radio();
-                },
-                splashColor: Colors.red.shade500,
-                child: Container(
-                  width: 100,
-                  height: 65.0,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      border: Border.all(color: Colors.red, width: 2.5),
-                      borderRadius: BorderRadius.circular(12.25)),
-                  child: _buildMultiButton(Icons.radio_outlined, 'Radio'),
-                ),
-              ),
-              InkWell(
-                // diagonal to the calculator
-                onTap: () {
-                  phone();
-                },
-                splashColor: Colors.red.shade500,
-                child: Container(
-                  // margin: const EdgeInsets.only(top: 20),
-                  width: 100,
-                  height: 65.0,
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      border: Border.all(color: Colors.red, width: 2.5),
-                      borderRadius: BorderRadius.circular(12.25)),
-                  child: _buildMultiButton(Icons.call_end_outlined, 'Phone'),
-                ),
-              )
-            ],
-          ),
-        ]));
-
-    // the custom widget builder for the logout button
-    Widget exitSec = Container(
-        margin: const EdgeInsets.only(left: 115, right: 120, top: 20),
-        width: 150.0,
-        height: 75.0,
-        decoration: BoxDecoration(
-            color: Colors.red,
-            border: Border.all(color: Colors.red, width: 2.5),
-            borderRadius: BorderRadius.circular(12.25)),
-        child: InkWell(
-          onTap: () {
-            logout();
-          },
-          splashColor: Colors.red.shade300,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildSingleBtn(Icons.logout_outlined, 'LogOut'),
-            ],
-          ),
-        ));
-
-    // the custom widget for the alarm button
-    Widget alarmSec = Container(
-        margin: const EdgeInsets.only(left: 115, right: 120, top: 20),
-        width: 150.0,
-        height: 75,
-        decoration: BoxDecoration(
-            color: Colors.red,
-            border: Border.all(color: Colors.red, width: 2),
-            borderRadius: BorderRadius.circular(12.25)),
-        child: InkWell(
-          onTap: () {
-            alarm();
-          },
-          splashColor: Colors.red.shade500,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [_buildSingleBtn(Icons.access_alarm_outlined, 'Alarm')],
-          ),
-        ));
-
-    return Scaffold(
-        backgroundColor: Colors.white, // add gradient here possibly
-        extendBodyBehindAppBar: true,
-        appBar: RoundedAppBar('Main Menu'), //AppBar
-        body: ListView(
-          children: [
-            alarmSec,
-            secondbtnSec,
-            exitSec,
-          ],
-        ));
-  }
-
-  Container _buildSingleBtn(IconData icon, String label) {
-    return Container(
-        child: Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          color: Colors.white,
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 8),
-          child: Text(
-            label,
-            style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'SanFrancisco'),
+            //Logout
+            Button(
+              h: hsmall,
+              w: wsmall,
+              // ic: Icons.logout,
+              text: 'Logout',
+              fw: FontWeight.bold,
+            )
+              ],
+            ),
           ),
         )
-      ],
-    ));
-  }
-
-  Column _buildMultiButton(IconData icon, String label) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          icon,
-          color: Colors.white,
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 8),
-          child: Text(
-            label,
-            style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'SanFrancisco'),
-          ),
-        )
-      ],
     );
   }
 }
