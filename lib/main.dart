@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:project/Alarm/Reminder.dart';
-import 'package:project/Calculator/Calculator.dart';
-import 'package:project/Calendar/Calendar.dart';
 import 'package:project/Custom_widgets/roundedAppBar.dart';
-import 'package:project/Custom_widgets/CustomBtn.dart';
-import 'package:project/Food/FoodTypes.dart';
+import 'package:project/Dashboard/Dashboard.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,15 +17,21 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       home: SafeArea(
-        child: MainMenu(),
+        child: LoginScreen(),
       ),
     );
   }
 }
 
-class MainMenu extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen>{
+  var username, password, token;
+  @override
+  Widget build(BuildContext context){
     double h1 = MediaQuery.of(context).size.height / 8;
     double w1 = (MediaQuery.of(context).size.width) / 4;
     double hsmall = MediaQuery.of(context).size.height / 20;
@@ -38,135 +40,58 @@ class MainMenu extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          // bottomNavigationBar: BottomBar(), // add gradient here possibly
-          //  extendBodyBehindAppBar: true,
-          appBar: RoundedAppBar('Main Menu'), //AppBar
+          appBar: RoundedAppBar('Login & Register'),
           body: Container(
             alignment: Alignment.center,
-            padding: EdgeInsets.fromLTRB(0, 0, 0, h1/2),
+            padding: EdgeInsets.fromLTRB(w1/2, 0, w1/2, h1/2),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                //Alarm Button
-                Button(
-                    h: h1,
-                    w: w1 * 2.5,
-                    im: Image(
-                      image: AssetImage('assets/icons/alarm.png'),
-                      width: 40,
-                      color: Color(0xffba2529),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SanFrancisco',
+                      fontSize: 15.0,
+                      color: Colors.red.withOpacity(0.5),
                     ),
-                    text: 'Alarm',
-                    meth: () => Navigator.push(context, PageRouteBuilder(
-                        pageBuilder: (context, animation, animationTime) {
-                          return Reminder();
-                        }
-                        )
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                  ),
+                  onChanged: (val){
+                    username = val;
+                  },
+                ),
+                TextFormField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: TextStyle(
+                      fontFamily: 'SanFrancisco',
+                      fontSize: 15.0,
+                      color: Colors.red.withOpacity(0.5),
+                    ),
+                    focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.red),
                     )
+                  ),
+                  onChanged: (val){
+                    password = val;
+                  },
                 ),
-                SizedBox(
-                  width: w1 / 4,
-                  height: h1 / 4,
-                ),
-                // 4 Buttons
-            Container(
-              padding: EdgeInsets.fromLTRB(w1 / 1.2, 0, w1 / 1.2, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Column(
-                    children: [
-                      //Calculator
-                      Button(
-                          h: h1,
-                          w: w1,
-                          im: Image(
-                            image: AssetImage('assets/icons/medicine.png'),
-                            width: 50,
-                            color: Color(0xffba2529),
-                          ),
-                          text: "Calculator",
-                          meth: () => Navigator.push(context, PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, animationTime) {
-                                return Calculator();
-                              }
-                              )
-                          )
-                      ),
-                      SizedBox(
-                        width: w1 / 4,
-                        height: h1 / 4,
-                      ),
-                      // Calendar
-                      Button(
-                        h: h1,
-                        w: w1,
-                        im: Image(
-                          image: AssetImage('assets/icons/calendar1.png'),
-                          width: 50,
-                          color: Color(0xffba2529),
-                        ),
-                        text: "Calender",
-                        meth: () => Navigator.push(context, PageRouteBuilder(
-                            pageBuilder: (context, animation, animationTime) {
-                              return Calendar();
-                        })),
+                SizedBox(height: 10.0),
+                ElevatedButton(
+                    onPressed: (){
+                      Navigator.push(context, PageRouteBuilder(
+                          pageBuilder: (context, animation, animationTime){
+                            return Dashboard();
+                      }
                       )
-                    ],
-                  ),
-                  SizedBox(
-                    width: w1 / 4,
-                    height: h1 / 4,
-                  ),
-                  Column(
-                    children: [
-                      // Radio
-                      Button(
-                        h: h1,
-                        w: w1,
-                        // ic: Icons.radio,
-                        im: Image(
-                          image: AssetImage('assets/fahad.png'),
-                          height: h1 / 2,
-                          width: w1 / 2,
-                        ),
-                        text: "Food Intake",
-                        meth: () => Navigator.push(context, PageRouteBuilder(
-                            pageBuilder: (context, animation, animationTime) {
-                          return FoodTypes();
-                        })),
-                      ),
-                      SizedBox(
-                        width: w1 / 4,
-                        height: h1 / 4,
-                      ),
-                      //Phone
-                      Button(
-                        h: h1,
-                        w: w1,
-                        ic: Icons.phone,
-                        text: "Phone",
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-                SizedBox(
-                  width: w1 / 6,
-                  height: h1 / 6,
+                      );
+                    },
+                    child: Text('Login')
                 ),
-            //Logout
-            Button(
-              h: hsmall,
-              w: wsmall,
-              // ic: Icons.logout,
-              text: 'Logout',
-              fw: FontWeight.bold,
-            )
               ],
             ),
           ),
@@ -174,3 +99,4 @@ class MainMenu extends StatelessWidget {
     );
   }
 }
+
