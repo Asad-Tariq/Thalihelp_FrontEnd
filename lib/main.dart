@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen>{
                     labelStyle: TextStyle(
                       fontFamily: 'SanFrancisco',
                       fontSize: 15.0,
-                      color: Colors.red.withOpacity(0.5),
+                      color: Colors.black.withOpacity(0.5),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.red),
@@ -70,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen>{
                     labelStyle: TextStyle(
                       fontFamily: 'SanFrancisco',
                       fontSize: 15.0,
-                      color: Colors.red.withOpacity(0.5),
+                      color: Colors.black.withOpacity(0.5),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.red),
@@ -83,12 +83,14 @@ class _LoginScreenState extends State<LoginScreen>{
                 SizedBox(height: 10.0),
                 ElevatedButton(
                     onPressed: (){
-                      Navigator.push(context, PageRouteBuilder(
-                          pageBuilder: (context, animation, animationTime){
-                            return Dashboard();
+                      if (username.contains('Username') && password.contains('Password')) {
+                        Navigator.push(context, PageRouteBuilder(
+                            pageBuilder: (context, animation, animationTime) {
+                              return Dashboard();
+                            }
+                        )
+                        );
                       }
-                      )
-                      );
                     },
                     child: Text('Login')
                 ),

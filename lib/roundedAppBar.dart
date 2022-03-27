@@ -36,11 +36,11 @@ class RoundedAppBar extends StatelessWidget implements PreferredSizeWidget {
                           stops: [0.3, 0.6, 1],
                           colors: [
                             Colors.white,
-                            Colors.redAccent,
+                            Colors.red[900],
                             Colors.red[900]
                           ],
                         ),
-                        color: Colors.redAccent,
+                        color: Colors.red[900],
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(

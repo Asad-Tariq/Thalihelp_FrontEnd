@@ -3,8 +3,9 @@ import 'package:project/Alarm/Reminder.dart';
 import 'package:project/Calendar/Calendar.dart';
 import 'package:project/Custom_widgets/CustomBtn.dart';
 import 'package:project/Food/FoodTypes.dart';
-import '../Calculator.dart';
-import '../main.dart';
+import 'package:project/Calculator/Calculator.dart';
+import 'package:project/Emergency/Emergency.dart';
+import 'package:project/main.dart';
 import 'package:project/Custom_widgets/roundedAppBar.dart';
 
 class Dashboard extends StatelessWidget {
@@ -69,8 +70,7 @@ class Dashboard extends StatelessWidget {
                           ),
                           text: "Calculator",
                           meth: () => Navigator.push(context, PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, animationTime) {
+                              pageBuilder: (context, animation, animationTime) {
                                 return Calculator();
                               }
                               )
@@ -123,13 +123,17 @@ class Dashboard extends StatelessWidget {
                         width: w1 / 4,
                         height: h1 / 4,
                       ),
-                      //Phone
+                      //Emergency
                       Button(
                         h: h1,
                         w: w1,
-                        ic: Icons.phone,
-                        text: "Phone",
-                      )
+                        ic: Icons.local_hospital_sharp,
+                        text: "Emergency",
+                        meth: () => Navigator.push(context, PageRouteBuilder(
+                            pageBuilder: (context, animation, animationTime) {
+                              return Emergency();
+                            })),
+                      ),
                     ],
                   ),
                 ],

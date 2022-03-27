@@ -7,24 +7,30 @@ class Button extends StatelessWidget {
   final String text;
   final double fontSize;
   final Function meth;
+  final Color clr;
 
   final FontWeight fw;
   final Image im;
   final IconData ic;
 
+  final VoidCallback onPressed;
+
   Button(
-      {this.h = 30.0,
-      this.w = 80.0,
-      this.lp = 0,
-      this.bp = 0,
-      this.tp = 0,
-      this.rp = 0,
-      this.text,
-      this.fontSize = 14,
-      this.meth,
-      this.ic,
-      this.fw = FontWeight.bold,
-      this.im});
+      {
+        this.h = 30.0,
+        this.w = 80.0,
+        this.lp = 0,
+        this.bp = 0,
+        this.tp = 0,
+        this.rp = 0,
+        this.text,
+        this.fontSize = 14,
+        this.meth,
+        this.clr,
+        this.ic,
+        this.onPressed,
+        this.fw = FontWeight.bold,
+        this.im});
 
   Widget _icon(ic) {
     if (ic != null) {
@@ -88,7 +94,7 @@ class Button extends StatelessWidget {
           color: Colors.white.withOpacity(0.0),
           child: InkWell(
             splashColor: Colors.red.shade400,
-            onTap: meth,
+            onTap: onPressed,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
