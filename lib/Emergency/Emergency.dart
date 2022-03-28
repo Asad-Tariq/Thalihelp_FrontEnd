@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/Custom_widgets/EmergencyButton.dart';
 import 'package:project/Custom_widgets/roundedAppBar.dart';
 import 'package:url_launcher/url_launcher.dart' as UrlLauncher;
-import 'package:project/Custom_widgets/CustomBtn.dart';
 
 class Emergency extends StatelessWidget {
   @override
@@ -17,7 +17,7 @@ class Emergency extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Button(
+            EmergencyButton(
               h: h1 / 2,
               w: w1 * 6,
               text: 'KITCC Emergency Contact',
@@ -36,7 +36,7 @@ class Emergency extends StatelessWidget {
             SizedBox(
               height: h1 / 4,
             ),
-            Button(
+            EmergencyButton(
               h: h1 / 2,
               w: w1 * 6,
               text: 'Ambulance',

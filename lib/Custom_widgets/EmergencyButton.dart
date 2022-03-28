@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Button extends StatelessWidget {
+class EmergencyButton extends StatelessWidget {
   final double w;
   final double h;
   final double lp, rp, tp, bp;
@@ -13,7 +13,9 @@ class Button extends StatelessWidget {
   final Image im;
   final IconData ic;
 
-  Button(
+  final VoidCallback onPressed;
+
+  EmergencyButton(
       {
         this.h = 30.0,
         this.w = 80.0,
@@ -26,6 +28,7 @@ class Button extends StatelessWidget {
         this.meth,
         this.clr,
         this.ic,
+        this.onPressed,
         this.fw = FontWeight.bold,
         this.im});
 
@@ -91,7 +94,7 @@ class Button extends StatelessWidget {
           color: Colors.white.withOpacity(0.0),
           child: InkWell(
             splashColor: Colors.red.shade400,
-            onTap: meth,
+            onTap: onPressed,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
